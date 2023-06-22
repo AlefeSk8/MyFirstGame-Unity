@@ -6,6 +6,8 @@ using Random = UnityEngine.Random;
 public class Hazard : MonoBehaviour
 {
     Vector3 rotation;
+    public ParticleSystem breakingEffect;
+
     private void Start()
     {
         var xRotation = Random.Range(0.5f, 1f);
@@ -20,7 +22,10 @@ public class Hazard : MonoBehaviour
     private void OnCollisionEnter(Collision collision)
     {
         if (!collision.gameObject.CompareTag("Hazard"))
+        {
+            Instantiate(breakingEffect, transform.position, Quaternion.identity);
             Destroy(gameObject);
+        }
     }
 
 }
